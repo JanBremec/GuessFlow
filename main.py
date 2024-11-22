@@ -35,7 +35,7 @@ def query(payload):
 
 
 # Page Styling
-st.set_page_config(page_title="Semantic Similarity Game", layout="centered")
+st.set_page_config(page_title="Guess Flow", layout="centered")
 st.markdown(
     """
     <style>
