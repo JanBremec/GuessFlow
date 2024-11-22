@@ -1,10 +1,19 @@
 import requests
 import streamlit as st
 import time
+from dotenv import load_dotenv
 import os
 
-# Retrieve the API key from an environment variable
+# Load environment variables from .env
+load_dotenv()
+
+# Access the API_KEY
 API_KEY = os.getenv("HUGGINGFACE_API_KEY")
+
+if not API_KEY:
+    raise ValueError("API_KEY is missing! Please set it in the .env file.")
+# Retrieve the API key from an environment variable
+
 # API Configuration
 
 API_URL = "https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2"
