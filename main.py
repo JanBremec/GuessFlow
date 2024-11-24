@@ -162,28 +162,31 @@ if user_input:
             "sentences": [user_input]
         },
     })
-    similarity_score = output[0]
-    lastTry = {
-        "guess": user_input,
-        "similarity": similarity_score
-    }
-    # Store the guess and similarity in tries
-    st.session_state.tries.append(lastTry)
+    try:
+        similarity_score = output[0]
+        lastTry = {
+            "guess": user_input,
+            "similarity": similarity_score
+        }
+        # Store the guess and similarity in tries
+        st.session_state.tries.append(lastTry)
 
 
-    # Check if the guess is correct
-    sorted_tries = sorted(st.session_state.tries, key=lambda x: x['similarity'], reverse=True)
+        # Check if the guess is correct
+        sorted_tries = sorted(st.session_state.tries, key=lambda x: x['similarity'], reverse=True)
 
-    if similarity_score >= 0.95:
-        st.balloons()
-        time.sleep(2)
-        st.session_state.score_up = int(similarity_score * 100)
-        st.session_state.score += st.session_state.score_up
-        st.session_state.level += 1
-        st.session_state.tries = []  # Reset tries for the next level
-        st.session_state.my_text = ""  # Clear the previous guess for the next round
+        if similarity_score >= 0.95:
+            st.balloons()
+            time.sleep(2)
+            st.session_state.score_up = int(similarity_score * 100)
+            st.session_state.score += st.session_state.score_up
+            st.session_state.level += 1
+            st.session_state.tries = []  # Reset tries for the next level
+            st.session_state.my_text = ""  # Clear the previous guess for the next round
 
-        st.rerun()
+            st.rerun()
+    except IndexError:
+        st.toast("Something went wrong with this word. Please try again.", icon="⚠️", duration=5)
 
 
 
